@@ -1,0 +1,6 @@
+.venv
+.env
+.python-version
+hexletcode/__pycache__/
+task_manager/__pycache__/
+task_manager/migrations/__pycache__/
