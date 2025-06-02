@@ -8,4 +8,5 @@ build:
 	./build.sh
 
 render-start:
+	pip install gunicorn
 	gunicorn task_manager.wsgi:application
