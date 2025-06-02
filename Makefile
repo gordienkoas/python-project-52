@@ -8,4 +8,4 @@ build:
 	./build.sh
 
 render-start:
-	gunicorn task_manager.wsgi:applicaton
+	gunicorn task_manager.wsgi:application
