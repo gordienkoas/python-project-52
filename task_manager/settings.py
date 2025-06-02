@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
-from django.conf.global_settings import SECRET_KEY, DATABASES
+
 from dotenv import load_dotenv
 import dj_database_url
 
