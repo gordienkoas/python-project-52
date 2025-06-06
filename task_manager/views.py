@@ -3,6 +3,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.views import LoginView, LogoutView
+from .forms import UserRegisterForm, UserUpdateForm
+
 
 def home_view(request):
     return render(request, 'index.html')
@@ -39,3 +46,47 @@ def login_view(request):
         login(request, user)
         return redirect('home')
     return render(request, 'login.html', {'form': form})
+
+class UserListView(ListView):
+    model = User
+    template_name = 'users/user_list.html'
+    context_object_name = 'users'
+
+# Создание пользователя (регистрация)
+class UserCreateView(CreateView):
+    model = User
+    form_class = UserRegisterForm
+    template_name = 'users/user_form.html'
+    success_url = reverse_lazy('login')  # после регистрации — вход
+
+# Редактирование пользователя — только сам пользователь
+class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'users/user_form.html'
+    success_url = reverse_lazy('user-list')
+
+    def test_func(self):
+        user = self.get_object()
+        return self.request.user == user
+
+# Удаление пользователя — только сам пользователь
+class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = User
+    template_name = 'users/user_confirm_delete.html'
+    success_url = reverse_lazy('user-list')
+
+    def test_func(self):
+        user = self.get_object()
+        return self.request.user == user
+
+# Вход
+class UserLoginView(LoginView):
+    template_name = 'users/login.html'
+
+    def get_success_url(self):
+        return reverse_lazy('home')  # замените на ваш URL главной страницы
+
+# Выход
+class UserLogoutView(LogoutView):
+    next_page = reverse_lazy('login')

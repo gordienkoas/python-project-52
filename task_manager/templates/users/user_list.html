@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Пользователи</h1>
+<a href="{% url 'user-create' %}">Зарегистрировать нового пользователя</a>
+<ul>
+    {% for user in users %}
+        <li>
+            {{ user.username }}
+            {% if request.user == user %}
+                <a href="{% url 'user-update' user.pk %}">Редактировать</a>
+                <a href="{% url 'user-delete' user.pk %}">Удалить</a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>Пользователей нет</li>
+    {% endfor %}
+</ul>
+{% endblock %}
