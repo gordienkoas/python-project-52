@@ -9,6 +9,12 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserRegisterForm, UserUpdateForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import Status
+from .forms import StatusForm
+
 
 
 def home_view(request):
@@ -90,3 +96,34 @@ class UserLoginView(LoginView):
 # Выход
 class UserLogoutView(LogoutView):
     next_page = reverse_lazy('login')
+
+class StatusListView(LoginRequiredMixin, ListView):
+    model = Status
+    template_name = 'statuses/status_list.html'
+
+class StatusCreateView(LoginRequiredMixin, CreateView):
+    model = Status
+    form_class = StatusForm
+    template_name = 'statuses/status_form.html'
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Статус успешно создан.')
+        return super().form_valid(form)
+
+class StatusUpdateView(LoginRequiredMixin, UpdateView):
+    model = Status
+    form_class = StatusForm
+    template_name = 'statuses/status_form.html'
+    success_url = reverse_lazy('status-list')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Статус успешно обновлен.')
+        return super().form_valid(form)
+
+class StatusDeleteView(LoginRequiredMixin, DeleteView):
+    model = Status
+    template_name = 'statuses/status_confirm_delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Статус успешно удален.')
+        return super().delete(request, *args, **kwargs)

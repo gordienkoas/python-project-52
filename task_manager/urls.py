@@ -1,10 +1,13 @@
 from django.contrib import admin
+from django.contrib.auth.views import LogoutView
 from django.urls import path
 from django.views.generic import TemplateView
 from .views import (
     UserListView, UserCreateView, UserUpdateView, UserDeleteView,
-    UserLoginView, UserLogoutView, register_view
+    UserLoginView, register_view
 )
+from .views import (StatusListView, StatusCreateView,
+                    StatusUpdateView, StatusDeleteView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,7 +18,12 @@ urlpatterns = [
     path('users/<int:pk>/update/', UserUpdateView.as_view(), name='user-update'),
     path('users/<int:pk>/delete/', UserDeleteView.as_view(), name='user-delete'),
     path('login/', UserLoginView.as_view(), name='login'),
-    path('logout/', UserLogoutView.as_view(), name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('statuses/', StatusListView.as_view(), name='status-list'),
+    path('statuses/create/', StatusCreateView.as_view(), name='status-create'),
+    path('statuses/<int:pk>/update/', StatusUpdateView.as_view(), name='status-update'),
+    path('status/update/<int:pk>/', StatusUpdateView.as_view(), name='status-update'),
+    path('statuses/<int:pk>/delete/', StatusDeleteView.as_view(), name='status-delete'),
 ]
 
 
