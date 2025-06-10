@@ -6,15 +6,14 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserRegisterForm, UserUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Status
-from .forms import StatusForm
-
+from .models import Status, Task
+from .forms import StatusForm, TaskForm
 
 
 def home_view(request):
@@ -126,4 +125,53 @@ class StatusDeleteView(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, 'Статус успешно удален.')
+        return super().delete(request, *args, **kwargs)
+
+
+class TaskListView(LoginRequiredMixin, ListView):
+    model = Task
+    template_name = 'tasks/task_list.html'
+    context_object_name = 'tasks'
+
+class TaskDetailView(LoginRequiredMixin, DetailView):
+    model = Task
+    template_name = 'tasks/task_detail.html'
+    context_object_name = 'task'
+
+class TaskCreateView(LoginRequiredMixin, CreateView):
+    model = Task
+    form_class = TaskForm
+    template_name = 'tasks/task_form.html'
+    success_url = reverse_lazy('task-list')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        messages.success(self.request, 'Задача успешно создана.')
+        return super().form_valid(form)
+
+class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = 'tasks/task_form.html'
+    success_url = reverse_lazy('task-list')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Задача успешно обновлена.')
+        return super().form_valid(form)
+
+    def test_func(self):
+        task = self.get_object()
+        return self.request.user == task.author
+
+class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Task
+    template_name = 'tasks/task_confirm_delete.html'
+    success_url = reverse_lazy('task-list')
+
+    def test_func(self):
+        task = self.get_object()
+        return self.request.user == task.author
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, 'Задача успешно удалена.')
         return super().delete(request, *args, **kwargs)
