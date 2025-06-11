@@ -1,8 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Status, Task
+from .models import Status, Task, Label
 
+
+class LabelForm(forms.ModelForm):
+    class Meta:
+        model = Label
+        fields = ['name']
 
 class UserRegisterForm(UserCreationForm):
     class Meta:
@@ -21,7 +26,8 @@ class StatusForm(forms.ModelForm):
         model = Status
         fields = ['name']
 
+
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description', 'assigned_to', 'status']
+        fields = ['title', 'description', 'status', 'executor', 'labels']

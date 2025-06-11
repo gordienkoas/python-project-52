@@ -4,17 +4,12 @@ from django.urls import path
 from django.views.generic import TemplateView
 from .views import (
     UserListView, UserCreateView, UserUpdateView, UserDeleteView,
-    UserLoginView, register_view
+    UserLoginView, register_view,  LabelListView, LabelCreateView,
+    LabelUpdateView, LabelDeleteView, StatusListView, StatusCreateView,
+    StatusUpdateView, StatusDeleteView, TaskListView, TaskDetailView,
+    TaskCreateView, TaskUpdateView, TaskDeleteView
 )
-from .views import (StatusListView, StatusCreateView,
-                    StatusUpdateView, StatusDeleteView)
-from .views import (
-    TaskListView,
-    TaskDetailView,
-    TaskCreateView,
-    TaskUpdateView,
-    TaskDeleteView,
-)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,4 +31,8 @@ urlpatterns = [
     path('tasks/<int:pk>/', TaskDetailView.as_view(), name='task-detail'),
     path('tasks/<int:pk>/update/', TaskUpdateView.as_view(), name='task-update'),
     path('tasks/<int:pk>/delete/', TaskDeleteView.as_view(), name='task-delete'),
+    path('labels/', LabelListView.as_view(), name='label-list'),
+    path('labels/create/', LabelCreateView.as_view(), name='label-create'),
+    path('labels/<int:pk>/update/', LabelUpdateView.as_view(), name='label-update'),
+    path('labels/<int:pk>/delete/', LabelDeleteView.as_view(), name='label-delete'),
 ]

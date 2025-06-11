@@ -1,19 +1,19 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserRegisterForm, UserUpdateForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Status, Task
-from .forms import StatusForm, TaskForm
+from .models import Status, Task, Label
+from .forms import StatusForm, TaskForm, LabelForm
+
 
 
 def home_view(request):
@@ -109,6 +109,9 @@ class StatusCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, 'Статус успешно создан.')
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse_lazy('status-list')
+
 class StatusUpdateView(LoginRequiredMixin, UpdateView):
     model = Status
     form_class = StatusForm
@@ -175,3 +178,38 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, 'Задача успешно удалена.')
         return super().delete(request, *args, **kwargs)
+
+
+class LabelListView(LoginRequiredMixin, ListView):
+    model = Label
+    template_name = 'labels/label_list.html'
+    context_object_name = 'labels'
+
+
+class LabelCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Label
+    form_class = LabelForm
+    template_name = 'labels/label_form.html'
+    success_url = reverse_lazy('label-list')
+    success_message = "Метка успешно создана"
+
+
+class LabelUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Label
+    form_class = LabelForm
+    template_name = 'labels/label_form.html'
+    success_url = reverse_lazy('label-list')
+    success_message = "Метка успешно изменена"
+
+
+class LabelDeleteView(LoginRequiredMixin, DeleteView):
+    model = Label
+    template_name = 'labels/label_confirm_delete.html'
+    success_url = reverse_lazy('label-list')
+
+    def form_valid(self, form):
+        if self.object.tasks.exists():
+            messages.error(self.request, "Нельзя удалить метку, связанную с задачами")
+            return redirect(reverse('label-list'))
+        messages.success(self.request, "Метка успешно удалена")
+        return super().form_valid(form)
