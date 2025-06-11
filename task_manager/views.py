@@ -13,7 +13,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Status, Task, Label
 from .forms import StatusForm, TaskForm, LabelForm
-
+from .filters import TaskFilter
+from django_filters.views import FilterView
 
 
 def home_view(request):
@@ -213,3 +214,18 @@ class LabelDeleteView(LoginRequiredMixin, DeleteView):
             return redirect(reverse('label-list'))
         messages.success(self.request, "Метка успешно удалена")
         return super().form_valid(form)
+
+
+class TaskListView(FilterView):
+    model = Task
+    filterset_class = TaskFilter
+    template_name = 'tasks/task_list.html'
+    context_object_name = 'tasks'
+    paginate_by = 10  # если нужна пагинация
+
+    def get_filterset(self, filterset_class):
+        # Передаём request в фильтр, чтобы использовать self.request.user
+        return filterset_class(self.request.GET, queryset=self.get_queryset(), request=self.request)
+
+    def get_queryset(self):
+        return Task.objects.all().order_by('id')
