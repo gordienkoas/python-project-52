@@ -43,12 +43,6 @@ rollbar.init(
 )
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y+58j*2eos1#fia1fxfd-px4bi_8122o6l+63c^ym7s(4txzyg'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
