@@ -131,12 +131,6 @@ class StatusDeleteView(LoginRequiredMixin, DeleteView):
         messages.success(self.request, 'Статус успешно удален.')
         return super().delete(request, *args, **kwargs)
 
-
-class TaskListView(LoginRequiredMixin, ListView):
-    model = Task
-    template_name = 'tasks/task_list.html'
-    context_object_name = 'tasks'
-
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'tasks/task_detail.html'

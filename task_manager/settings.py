@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import rollbar
 from pathlib import Path
 
 
@@ -26,6 +27,20 @@ DATABASES = {
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+#rollbar
+
+ROLLBAR = {
+    'access_token': '6c8f6381910d4b42b9c6ce38b1b3e3afc7f902e93529342a1a1f6e65619171b035bed71cbec65d0a4db2d9a1aff59551',
+    'environment': 'development' if os.environ.get('DJANGO_DEVELOPMENT') else 'production',
+    'root': os.path.dirname(os.path.abspath(__file__)),
+}
+
+rollbar.init(
+    access_token=ROLLBAR['access_token'],
+    environment=ROLLBAR['environment'],
+    root=ROLLBAR['root'],
+)
 
 
 # Quick-start development settings - unsuitable for production
@@ -61,6 +76,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
