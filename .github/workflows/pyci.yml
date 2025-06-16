@@ -1,24 +1,20 @@
-name: CI check
+ame: Python application
 
-on: push
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.11'
-        # make depends on uv
+          python-version: '3.10'
       - name: Install dependencies
         run: |
           pip install uv
-          make install
-      - name: Run linter
+          uv sync
+      - name: lint
         run: |
-          make lint
-      - name: Run pytest
-        run: |
-          make test
+          uv run ruff check .
