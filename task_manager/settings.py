@@ -104,8 +104,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'djangobd',
-        'USER': 'tirion',  # Обычно 'postgres'
-        'PASSWORD': '1234',
+        'USER': 'tirion', 
+        'PASSWORD': 'HLKv6Q0UIlVKOqVi0oz0wcqKki5KpBz1',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -161,6 +161,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-last_error_time = 0
-min_interval = 10
 
