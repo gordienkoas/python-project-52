@@ -103,10 +103,10 @@ WSGI_APPLICATION = 'hexletcode.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djangobd_cbxu',
+        'NAME': 'djangobd',
         'USER': 'tirion', 
-        'PASSWORD': 'HLKv6Q0UIlVKOqVi0oz0wcqKki5KpBz1',
-        'HOST': 'dpg-d17u1j8dl3ps739718b0-a',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
     }
 }
 
