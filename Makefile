@@ -10,6 +10,9 @@ migrate:
 build:
 	./build.sh
 
+test:
+	pytest
+
 render-start:
 	gunicorn task_manager.wsgi:application
 
