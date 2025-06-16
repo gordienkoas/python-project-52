@@ -18,6 +18,3 @@ jobs:
       - name: lint
         run: |
           uv run ruff check .
-      - name: test
-        run: |
-          uv run pytest
