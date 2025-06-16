@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #rollbar
 
 ROLLBAR = {
-    'access_token': '6c8f6381910d4b42b9c6ce38b1b3e3afc7f902e93529342a1a1f6e65619171b035bed71cbec65d0a4db2d9a1aff59551',
+    'access_token': 'db573fbc6d784dc6bbd82d8be0b0eae08114190883a41058596e8c8487b43d0e92d69908303c3ae2f912af2f782fc9c9',
     'environment': 'development' if os.environ.get('DJANGO_DEVELOPMENT') else 'production',
     'root': os.path.dirname(os.path.abspath(__file__)),
 }
@@ -166,3 +166,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+last_error_time = 0
+min_interval = 10
+
