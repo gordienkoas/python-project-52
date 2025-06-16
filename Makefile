@@ -4,8 +4,8 @@ install:
 #lint:
 #	ruff check .
 #
-#migrate:
-#	uv run python manage.py migrate
+migrate:
+	uv run python manage.py migrate
 #
 #collectstatic:
 #	uv run python manage.py collectstatic
