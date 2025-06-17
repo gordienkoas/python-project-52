@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 import rollbar
 from pathlib import Path
+from decouple import config
 
 
 from dotenv import load_dotenv
@@ -63,6 +64,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'task_manager',
+    'users',
+    # 'tasks',
+    # 'statuses',
+    # 'labels',
     'django_bootstrap5',
 ]
 
@@ -77,7 +82,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'hexletcode.urls'
+ROOT_URLCONF = 'task_manager.urls'
 
 TEMPLATES = [
     {
@@ -94,7 +99,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'hexletcode.wsgi.application'
+WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 
 # Database
@@ -102,11 +107,8 @@ WSGI_APPLICATION = 'hexletcode.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djangobd',
-        'USER': 'tirion', 
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -160,4 +162,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+SECRET_KEY = config('SECRET_KEY')

@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.messages import get_messages
 from django.contrib.auth import get_user_model
-from task_manager.models import Status
+from task_manager_.models import Status
 
 class StatusUpdateTest(TestCase):
     def setUp(self):

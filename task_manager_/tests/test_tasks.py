@@ -1,6 +1,6 @@
 import pytest
 from django.urls import reverse
-from task_manager.models import Task
+from task_manager_.models import Task
 from django.contrib.auth.models import User
 from django.test import Client
 

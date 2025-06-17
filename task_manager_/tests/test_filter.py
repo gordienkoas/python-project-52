@@ -1,7 +1,7 @@
 from django.test import TestCase, RequestFactory
 from django.contrib.auth import get_user_model
-from task_manager.models import Task, Label
-from task_manager.filters import TaskFilter
+from task_manager_.models import Task, Label
+from task_manager_.filters import TaskFilter
 
 User = get_user_model()
 

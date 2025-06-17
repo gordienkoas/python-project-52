@@ -1,8 +1,8 @@
 .venv
 .env
 .python-version
-hexletcode/__pycache__/
 task_manager/__pycache__/
-task_manager/migrations/__pycache__/
+task_manager_/__pycache__/
+task_manager_/migrations/__pycache__/
 static
 staticfiles
