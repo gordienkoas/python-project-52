@@ -94,7 +94,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'hexletcode.wsgi.application'
+WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 
 # Database
