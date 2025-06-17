@@ -77,7 +77,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'hexletcode.urls'
+ROOT_URLCONF = 'task_manager.urls'
 
 TEMPLATES = [
     {
@@ -102,11 +102,8 @@ WSGI_APPLICATION = 'hexletcode.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djangobd',
-        'USER': 'tirion', 
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
