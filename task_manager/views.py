@@ -74,6 +74,15 @@ class UserListView(ListView):
 #
 #     def test_func(self):
 #         user = self.get_object()
+#         return self.request.user == user # Редактирование пользователя — только сам пользователь
+# class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+#     model = User
+#     form_class = UserUpdateForm
+#     template_name = 'users/user_form.html'
+#     success_url = reverse_lazy('user-list')
+#
+#     def test_func(self):
+#         user = self.get_object()
 #         return self.request.user == user
 #
 # # Удаление пользователя — только сам пользователь

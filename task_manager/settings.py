@@ -65,9 +65,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'task_manager',
     'users',
-    #'tasks',
-    # 'statuses',
-    # 'labels',
+    'tasks',
+    'statuses',
+    'labels',
     'django_bootstrap5',
 ]
 
