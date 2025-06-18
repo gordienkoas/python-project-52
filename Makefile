@@ -1,3 +1,6 @@
+build:
+	./build.sh
+
 install:
 	uv sync
 
@@ -6,9 +9,6 @@ lint:
 
 migrate:
 	uv run python manage.py migrate
-
-build:
-	./build.sh
 
 test:
 	pytest
