@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
-from task_manager.views import UserListView, UserLoginView, register_view
+from task_manager.views import UserLoginView, register_view
 
 urlpatterns = [
      path('admin/', admin.site.urls),

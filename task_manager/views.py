@@ -1,20 +1,13 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.contrib.auth.views import LoginView
 #from task_manager.forms import UserRegisterForm, UserUpdateForm
 from django.shortcuts import render, redirect
-from django.contrib import messages
 #from task_manager.models import Status, Task, Label
 #from task_manager.forms import StatusForm, TaskForm, LabelForm
 #from task_manager.filters import TaskFilter
-from django_filters.views import FilterView
 #
 #
 # def home_view(request):

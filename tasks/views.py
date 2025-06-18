@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .models import Task
@@ -35,16 +35,16 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
      template_name = 'tasks/task_detail.html'
      context_object_name = 'task'
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
-    model = Task
-    form_class = TaskForm
-    template_name = 'tasks/task_form.html'
-    success_url = reverse_lazy('task-list')
+# class TaskCreateView(LoginRequiredMixin, CreateView):
+#     model = Task
+#     form_class = TaskForm
+#     template_name = 'tasks/task_form.html'
+#     success_url = reverse_lazy('task-list')
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        messages.success(self.request, 'Задача успешно создана.')
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     form.instance.author = self.request.user
+    #     messages.success(self.request, 'Задача успешно создана.')
+    #     return super().form_valid(form)
 
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task

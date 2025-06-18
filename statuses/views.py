@@ -18,21 +18,21 @@ class StatusCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, 'Статус успешно создан.')
         return super().form_valid(form)
 
-class StatusListView(LoginRequiredMixin, ListView):
-     model = Status
-     template_name = 'statuses/status_list.html'
+# class StatusListView(LoginRequiredMixin, ListView):
+#      model = Status
+#      template_name = 'statuses/status_list.html'
 
-class StatusCreateView(LoginRequiredMixin, CreateView):
-     model = Status
-     form_class = StatusForm
-     template_name = 'statuses/status_form.html'
+# class StatusCreateView(LoginRequiredMixin, CreateView):
+#      model = Status
+#      form_class = StatusForm
+#      template_name = 'statuses/status_form.html'
 
-     def form_valid(self, form):
-         messages.success(self.request, 'Статус успешно создан.')
-         return super().form_valid(form)
-
-     def get_success_url(self):
-         return reverse_lazy('status-list')
+     # def form_valid(self, form):
+     #     messages.success(self.request, 'Статус успешно создан.')
+     #     return super().form_valid(form)
+     #
+     # def get_success_url(self):
+     #     return reverse_lazy('status-list')
 
 class StatusUpdateView(LoginRequiredMixin, UpdateView):
     model = Status
