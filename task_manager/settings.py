@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 import rollbar
 from pathlib import Path
-from decouple import config
+
 
 
 from dotenv import load_dotenv
@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'task_manager',
     'users',
-    # 'tasks',
+    #'tasks',
     # 'statuses',
     # 'labels',
     'django_bootstrap5',
@@ -161,5 +161,3 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-SECRET_KEY = config('SECRET_KEY')
