@@ -1,6 +1,5 @@
 build:
-	./build.sh
-
+	. .venv/bin/activate && ./build.sh
 install:
 	uv sync
 
