@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 #from task_manager.forms import StatusForm, TaskForm, LabelForm
 #from task_manager.filters import TaskFilter
 from task_manager.users.forms import CustomAuthenticationForm
+from django.contrib import messages
 #
 # def home_view(request):
 #     return render(request, 'index.html')
@@ -92,6 +93,10 @@ class UserListView(ListView):
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
     authentication_form = CustomAuthenticationForm
+
+    def form_valid(self, form):
+        messages.success(self.request, "Вы залогинены")
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('home')

@@ -17,14 +17,6 @@ class UserUpdateForm(UserChangeForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email')
 
-class LoginForm(forms.Form):
-    username = forms.CharField(
-        max_length=150,
-        widget=forms.TextInput(attrs={"placeholder": "Имя пользователя"})
-    )
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Пароль"})
-    )
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
