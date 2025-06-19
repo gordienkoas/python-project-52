@@ -5,7 +5,7 @@
 <ul>
     {% for user in users %}
         <li>
-            {{ user.username }}
+            {{ user.first_name }} {{ user.last_name }} ({{ user.username }})
             {% if request.user == user %}
                 <a href="{% url 'user-update' user.pk %}">Редактировать</a>
                 <a href="{% url 'user-delete' user.pk %}">Удалить</a>
