@@ -1,21 +1,11 @@
 install:
 	uv sync
 
-build:
-	./build.sh
-
-lint:
-	ruff check .
-
-#migrate:
-#	uv run python manage.py migrate
+migrate:
+	uv run python3 manage.py migrate
 
 start:
-	cd code && uv run manage.py runserver 0.0.0.0:3000
+	uv run manage.py runserver 0.0.0.0:8000
 
 test:
-	pytest
-
-render-start:
-	uv run gunicorn task_manager.wsgi:application
-
+	uv run python3 manage.py test
