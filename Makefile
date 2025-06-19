@@ -1,5 +1,5 @@
 install:
-	pip install Django
+	uv sync
 
 migrate:
 	uv run python3 manage.py migrate
