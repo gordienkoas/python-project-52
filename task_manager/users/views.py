@@ -8,6 +8,7 @@ from task_manager.users.forms import UserRegisterForm, UserUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
+
 def register_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

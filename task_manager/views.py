@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 #from task_manager.models import Status, Task, Label
 #from task_manager.forms import StatusForm, TaskForm, LabelForm
 #from task_manager.filters import TaskFilter
-#
+from task_manager.users.forms import CustomAuthenticationForm
 #
 # def home_view(request):
 #     return render(request, 'index.html')
@@ -91,9 +91,10 @@ class UserListView(ListView):
 # # Вход
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
+    authentication_form = CustomAuthenticationForm
 
     def get_success_url(self):
-        return reverse_lazy('home')  # замените на ваш URL главной страницы
+        return reverse_lazy('home')
 #
 # # Выход
 # class UserLogoutView(LogoutView):
