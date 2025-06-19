@@ -5,7 +5,7 @@ migrate:
 	uv run python3 manage.py migrate
 
 start-server:
-	cd code && python manage.py runserver 0.0.0.0:3000
+	run manage.py runserver 0.0.0.0:3000
 
 test:
 	uv run python3 manage.py test
