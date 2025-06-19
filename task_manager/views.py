@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import ListView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 #from task_manager.forms import UserRegisterForm, UserUpdateForm
 from django.shortcuts import render, redirect
 #from task_manager.models import Status, Task, Label
@@ -10,7 +10,8 @@ from django.shortcuts import render, redirect
 #from task_manager.filters import TaskFilter
 from task_manager.users.forms import CustomAuthenticationForm
 from django.contrib import messages
-#
+
+
 # def home_view(request):
 #     return render(request, 'index.html')
 #
@@ -100,11 +101,14 @@ class UserLoginView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('home')
-#
-# # Выход
-# class UserLogoutView(LogoutView):
-#     next_page = reverse_lazy('login')
-#
+
+
+class UserLogoutView(LogoutView):
+    next_page = 'home'
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, "Вы разлогинены")
+        return super().dispatch(request, *args, **kwargs)
 #
 #
 #
