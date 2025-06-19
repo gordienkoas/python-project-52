@@ -1,8 +1,8 @@
-build:
-	bash -c "source .venv/bin/activate && ./build.sh"
-
 install:
 	uv sync
+
+build:
+	./build.sh
 
 lint:
 	ruff check .
@@ -11,7 +11,7 @@ lint:
 #	uv run python manage.py migrate
 
 start:
-	uv run python3 manage.py runserver 0.0.0.0:8000
+	cd code && ../.venv/bin/python manage.py runserver 0.0.0.0:8000
 
 test:
 	pytest
