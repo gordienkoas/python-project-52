@@ -11,11 +11,11 @@ lint:
 #	uv run python manage.py migrate
 
 start:
-	cd code && ../.venv/bin/python manage.py runserver 0.0.0.0:8000
+	cd code && uv run manage.py runserver 0.0.0.0:3000
 
 test:
 	pytest
 
 render-start:
-	gunicorn task_manager.wsgi:application
+	uv run gunicorn task_manager.wsgi:application
 
