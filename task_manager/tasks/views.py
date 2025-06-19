@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import Task
 from .forms import TaskForm
 from django_filters.views import FilterView
-from tasks.filters import TaskFilter
+from task_manager.tasks.filters import TaskFilter
 
 class TaskListView(FilterView):
     model = Task

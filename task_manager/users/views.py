@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
-from users.forms import UserRegisterForm, UserUpdateForm
+from task_manager.users.forms import UserRegisterForm, UserUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 

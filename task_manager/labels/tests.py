@@ -1,8 +1,8 @@
 # tasks/tests/test_labels.py
 from django.test import TestCase
 from django.urls import reverse
-from labels.models import Label
-from tasks.models import Task
+from task_manager.labels.models import Label
+from task_manager.tasks.models import Task
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
