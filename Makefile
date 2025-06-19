@@ -9,3 +9,6 @@ start:
 
 test:
 	uv run python3 manage.py test
+
+build:
+	./build.sh
