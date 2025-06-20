@@ -83,18 +83,18 @@ class UserUpdateForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'placeholder': 'Введите имя'}),
         help_text='Введите ваше имя'
     )
-    # last_name = forms.CharField(
-    #     label="Фамилия",
-    #     max_length=30,
-    #     widget=forms.TextInput(attrs={'placeholder': 'Введите фамилию'}),
-    #     help_text='Введите вашу фамилию'
-    # )
-    # username = forms.CharField(
-    #     label="Имя пользователя",
-    #     max_length=150,
-    #     widget=forms.TextInput(attrs={'placeholder': 'Введите имя пользователя'}),
-    #     help_text='Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_'
-    # )
+    last_name = forms.CharField(
+        label="Фамилия",
+        max_length=30,
+        widget=forms.TextInput(attrs={'placeholder': 'Введите фамилию'}),
+        help_text='Введите вашу фамилию'
+    )
+    username = forms.CharField(
+        label="Имя пользователя",
+        max_length=150,
+        widget=forms.TextInput(attrs={'placeholder': 'Введите имя пользователя'}),
+        help_text='Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_'
+    )
 
     class Meta:
         model = User
