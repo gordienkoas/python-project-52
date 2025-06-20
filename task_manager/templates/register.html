@@ -1,16 +1,18 @@
 <form method="post" novalidate autocomplete="off">
   {% csrf_token %}
 
- <label class="form-label" for="id_first_name">Имя</label>
-{{ form.first_name.as_widget(attrs={
-    'id': 'id_first_name',
-    'name': 'first_name',
-    'maxlength': '150',
-    'class': 'form-control',
-    'placeholder': 'Имя',
-    'required': '',
-    'aria-label': 'Имя'
-}) }}
+ <div id="first_name_container">
+    <label class="form-label" for="id_first_name">Имя</label>
+    {{ form.first_name.as_widget(attrs={
+        'id': 'id_first_name',
+        'name': 'first_name',
+        'maxlength': '150',
+        'class': 'form-control',
+        'placeholder': 'Имя',
+        'required': '',
+        'aria-label': 'Имя'
+    }) }}
+</div>
 
 
   <div>
