@@ -12,7 +12,7 @@ class UserRegisterForm(UserCreationForm):
         required=True,
         widget=forms.TextInput(attrs={
             'placeholder': 'Имя',
-            'name': 'first_name'  # добавляем name для поиска в тесте
+            # 'name': 'first_name'  # обычно не обязательно добавлять вручную
         }),
     )
     last_name = forms.CharField(
@@ -21,7 +21,6 @@ class UserRegisterForm(UserCreationForm):
         required=True,
         widget=forms.TextInput(attrs={
             'placeholder': 'Фамилия',
-            'name': 'last_name'
         }),
     )
     username = forms.CharField(
@@ -30,9 +29,7 @@ class UserRegisterForm(UserCreationForm):
         required=True,
         widget=forms.TextInput(attrs={
             'placeholder': 'Имя пользователя',
-            'name': 'username'
         }),
-        help_text=_('Обязательное поле. Не более 150 символов.')
     )
     password1 = forms.CharField(
         label=_("Пароль"),
@@ -40,9 +37,7 @@ class UserRegisterForm(UserCreationForm):
         required=True,
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Пароль',
-            'name': 'password1'
         }),
-        help_text=_("Ваш пароль должен содержать не менее 3 символов.")
     )
     password2 = forms.CharField(
         label=_("Подтверждение пароля"),
@@ -50,30 +45,8 @@ class UserRegisterForm(UserCreationForm):
         required=True,
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Подтверждение пароля',
-            'name': 'password2'
         }),
-        help_text=_("Для подтверждения введите, пожалуйста, пароль ещё раз.")
     )
-
-    class Meta:
-        model = User
-        fields = ("first_name", "last_name", "username", "password1", "password2")
-
-    def clean_password1(self):
-        password1 = self.cleaned_data.get("password1")
-        if len(password1) < 3:
-            raise ValidationError(_("Пароль должен содержать не менее 3 символов."))
-        return password1
-
-    def clean(self):
-        cleaned_data = super().clean()
-        password1 = cleaned_data.get("password1")
-        password2 = cleaned_data.get("password2")
-
-        if password1 and password2 and password1 != password2:
-            raise ValidationError(_("Пароли не совпадают."))
-
-        return cleaned_data
 
 
 class UserUpdateForm(forms.ModelForm):
