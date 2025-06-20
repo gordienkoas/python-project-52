@@ -1,5 +1,3 @@
-<!-- templates/register.html -->
-
 {% extends "base.html" %}
 
 {% block title %}Регистрация{% endblock %}
@@ -8,7 +6,26 @@
   <h2>Регистрация</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}  <!-- Отображение формы, переданной из представления -->
+    <p>
+      {{ form.first_name.label_tag }}<br>
+      {{ form.first_name }}
+    </p>
+    <p>
+      {{ form.last_name.label_tag }}<br>
+      {{ form.last_name }}
+    </p>
+    <p>
+      {{ form.username.label_tag }}<br>
+      {{ form.username }}
+    </p>
+    <p>
+      {{ form.password1.label_tag }}<br>
+      {{ form.password1 }}
+    </p>
+    <p>
+      {{ form.password2.label_tag }}<br>
+      {{ form.password2 }}
+    </p>
     <button type="submit">Зарегистрироваться</button>
   </form>
 {% endblock %}
