@@ -1,18 +1,69 @@
-from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.views.generic import ListView
 from django.contrib.auth.views import LoginView, LogoutView
-from django.utils.translation import gettext as _
+#from task_manager.forms import UserRegisterForm, UserUpdateForm
+from django.shortcuts import render, redirect
+#from task_manager.models import Status, Task, Label
+#from task_manager.forms import StatusForm, TaskForm, LabelForm
+#from task_manager.filters import TaskFilter
+from task_manager.users.forms import CustomAuthenticationForm
+from django.contrib import messages
 
 
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # После регистрации перенаправляем на вход
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
+
+class UserListView(ListView):
+     model = User
+     template_name = 'users/user_list.html'
+     context_object_name = 'users'
+r
+#
+# # Вход
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
-    redirect_authenticated_user = True
+    authentication_form = CustomAuthenticationForm
 
     def form_valid(self, form):
-        messages.success(self.request, _("You are logged in"))
+        messages.success(self.request, "Вы залогинены")
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
 
 
 class UserLogoutView(LogoutView):
+    next_page = 'home'
+
     def dispatch(self, request, *args, **kwargs):
-        messages.info(self.request, _("You are logged out"))
+        messages.success(request, "Вы разлогинены")
         return super().dispatch(request, *args, **kwargs)
+#
+#
+#
+#
+#
+#
+#
+# class TaskListView(FilterView):
+#     model = Task
+#     filterset_class = TaskFilter
+#     template_name = 'tasks/task_list.html'
+#     context_object_name = 'tasks'
+#     paginate_by = 10  # если нужна пагинация
+#
+#     def get_filterset(self, filterset_class):
+#         # Передаём request в фильтр, чтобы использовать self.request.user
+#         return filterset_class(self.request.GET, queryset=self.get_queryset(), request=self.request)
+#
+#     def get_queryset(self):
+#         return Task.objects.all().order_by('id')
