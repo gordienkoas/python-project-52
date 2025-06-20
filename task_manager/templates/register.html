@@ -3,7 +3,7 @@
 
   <div>
     <label for="{{ form.first_name.id_for_label }}">Имя</label>
-    {{ form.first_name.as_widget(attrs={'id': 'first_name', 'name': 'first_name'}) }}
+    {{ form.first_name.as_widget(attrs={'id': 'first_name', 'Имя': 'first_name'}) }}
     {% for error in form.first_name.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
