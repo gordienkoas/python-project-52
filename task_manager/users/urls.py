@@ -1,9 +1,12 @@
+from .views import UsersView, SignUpView, DeleteUserView, UpdateUserView
 from django.urls import path
-from .views import UserListView, UserCreateView, UserUpdateView, UserDeleteView
+
+
+app_name = "users"
 
 urlpatterns = [
-    path('', UserListView.as_view(), name='user-list'),
-    path('create/', UserCreateView.as_view(), name='user-create'),  # Добавляем маршрут для создания пользователя
-    path('<int:pk>/update/', UserUpdateView.as_view(), name='user-update'),
-    path('<int:pk>/delete/', UserDeleteView.as_view(), name='user-delete'),
+    path("", UsersView.as_view(), name="user_list"),
+    path("create/", SignUpView.as_view(), name="create_user"),
+    path("<int:pk>/delete/", DeleteUserView.as_view(), name="delete_user"),
+    path("<int:pk>/update/", UpdateUserView.as_view(), name="update_user"),
 ]

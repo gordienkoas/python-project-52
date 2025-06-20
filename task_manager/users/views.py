@@ -1,62 +1,84 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.urls import reverse_lazy
+from .forms import NewUserForm
+from .models import MyUser
+
+from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView
-from task_manager.users.forms import UserRegisterForm, UserUpdateForm
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    # AccessMixin,
+)
+
+from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 
 
-
-from django.shortcuts import render, redirect
-from .forms import UserRegisterForm
-
-def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')  # или куда нужно
-    else:
-        form = UserRegisterForm()
-    return render(request, 'register.html', {'form': form})
-
-class UserListView(ListView):
-    model = User
-    template_name = 'users/user_list.html'
-    context_object_name = 'users'
-
-class UserLoginView(LoginView):
-    template_name = 'users/login.html'
-
-    def get_success_url(self):
-        return reverse_lazy('home')  # замените на ваш URL главной страницы
+class UsersView(ListView):
+    model = MyUser
+    context_object_name = "user_list"
+    template_name = "users/users_list.html"
 
 
-# Создание пользователя (регистрация)
-class UserCreateView(CreateView):
-    model = User
-    form_class = UserRegisterForm
-    template_name = 'users/user_form.html'
-    success_url = reverse_lazy('login')
+class SignUpView(SuccessMessageMixin, CreateView):
+    template_name = "users/register.html"
+    success_url = reverse_lazy("login")
+    form_class = NewUserForm
+    success_message = _("Your profile was successfully created")
 
 
-class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = User
-    form_class = UserUpdateForm
-    template_name = 'users/user_form.html'
-    success_url = reverse_lazy('user-list')
+class LoginUserView(SuccessMessageMixin, LoginView):
+    template_name = "users/login.html"
+    redirect_authenticated_user = True
+    success_url = reverse_lazy("index")
+    success_message = _("You are logged in")
 
-    def test_func(self):
-        user = self.get_object()
-        return self.request.user == user
 
-class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = User
-    template_name = 'users/user_confirm_delete.html'
-    success_url = reverse_lazy('user-list')
+class LogoutUserView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        messages.add_message(request, messages.INFO, _("You are logged out"))
+        return response
+
+
+class UpdateUserView(
+    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView
+):
+    model = MyUser
+    success_url = reverse_lazy("users:user_list")
+    template_name = "users/update.html"
+    form_class = NewUserForm
+    success_message = _("The user has been successfully updated")
+    login_url = reverse_lazy("login")
+    redirect_field_name = None
 
     def test_func(self):
-        user = self.get_object()
-        return self.request.user == user
+        return self.request.user.pk == self.get_object().pk
+
+    def handle_no_permission(self):
+        messages.error(
+            self.request, _("You don't have the rights to change another user")
+        )
+        return redirect("users:user_list")
+
+
+class DeleteUserView(
+    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView
+):
+    model = MyUser
+    success_url = reverse_lazy("users:user_list")
+    template_name = "users/delete.html"
+    success_message = _("The user has been successfully deleted")
+    login_url = reverse_lazy("login")
+    redirect_field_name = None
+
+    def test_func(self):
+        return self.request.user.pk == self.get_object().pk
+
+    def handle_no_permission(self):
+        messages.error(
+            self.request, _("You don't have the rights to delete another user")
+        )
+        return redirect("users:user_list")
