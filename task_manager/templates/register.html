@@ -1,16 +1,31 @@
 <form method="post" novalidate autocomplete="off">
   {% csrf_token %}
 
-  <div></div>
-  {% csrf_token %}
-  <label for="first_name">Имя</label>
-  <input type="text" id="first_name" name="first_name" aria-label="Имя" />
-  <button type="submit">Отправить</button>
-</div>
+  <div>
+    <label for="{{ form.first_name.id_for_label }}">Имя</label>
+    {{ form.first_name.as_widget(attrs={
+        'id': 'id_first_name',
+        'name': 'first_name',
+        'maxlength': '150',
+        'class': 'form-control',
+        'placeholder': 'Имя',
+        'required': ''
+    }) }}
+    {% for error in form.first_name.errors %}
+      <div style="color: red;">{{ error }}</div>
+    {% endfor %}
+  </div>
 
   <div>
     <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
-    {{ form.last_name.as_widget(attrs={'id': 'last_name', 'name': 'last_name', 'aria-label': 'Фамилия'}) }}
+    {{ form.last_name.as_widget(attrs={
+        'id': 'id_last_name',
+        'name': 'last_name',
+        'maxlength': '150',
+        'class': 'form-control',
+        'placeholder': 'Фамилия',
+        'required': ''
+    }) }}
     {% for error in form.last_name.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
@@ -18,7 +33,14 @@
 
   <div>
     <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
-    {{ form.username.as_widget(attrs={'id': 'username', 'name': 'username', 'aria-label': 'Имя пользователя'}) }}
+    {{ form.username.as_widget(attrs={
+        'id': 'id_username',
+        'name': 'username',
+        'maxlength': '150',
+        'class': 'form-control',
+        'placeholder': 'Имя пользователя',
+        'required': ''
+    }) }}
     {% for error in form.username.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
@@ -26,7 +48,14 @@
 
   <div>
     <label for="{{ form.password1.id_for_label }}">Пароль</label>
-    {{ form.password1.as_widget(attrs={'id': 'password1', 'name': 'password1', 'aria-label': 'Пароль'}) }}
+    {{ form.password1.as_widget(attrs={
+        'id': 'id_password1',
+        'name': 'password1',
+        'maxlength': '',
+        'class': 'form-control',
+        'placeholder': '',
+        'required': ''
+    }) }}
     {% for error in form.password1.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
@@ -34,7 +63,11 @@
 
   <div>
     <label for="{{ form.password2.id_for_label }}">Подтверждение пароля</label>
-    {{ form.password2.as_widget(attrs={'id': 'password2', 'name': 'password2', 'aria-label': 'Подтверждение пароля'}) }}
+    {{ form.password2.as_widget(attrs={
+        'id': 'id_password2',
+        'name':='password2',
+        # остальные атрибуты по необходимости
+    }) }}
     {% for error in form.password2.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
