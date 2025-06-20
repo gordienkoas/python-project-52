@@ -9,14 +9,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 
-def register_view(request):
+from django.shortcuts import render, redirect
+from .forms import UserRegisterForm
+
+def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # После регистрации перенаправляем на вход
+            return redirect('login')  # или куда нужно
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()
     return render(request, 'register.html', {'form': form})
 
 class UserListView(ListView):

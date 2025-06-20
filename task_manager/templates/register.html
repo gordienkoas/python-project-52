@@ -1,62 +1,46 @@
-<!--{% extends "base.html" %}-->
-
-<!--{% block title %}Регистрация{% endblock %}-->
-
-<!--{% block content %}-->
-<!--  <h2>Регистрация</h2>-->
-<!--  <form method="post">-->
-<!--    {% csrf_token %}-->
-<!--    {{ form.as_p }}  &lt;!&ndash; Отображение формы, переданной из представления &ndash;&gt;-->
-<!--    <button type="submit">Зарегистрироваться</button>-->
-<!--  </form>-->
-<!--{% endblock %}-->
+{# templates/register.html #}
 <form method="post" novalidate>
-    {% csrf_token %}
+  {% csrf_token %}
 
-    {{ form.non_field_errors }}
+  <div>
+    <label for="{{ form.first_name.id_for_label }}">Имя</label>
+    {{ form.first_name }}
+    {% for error in form.first_name.errors %}
+      <div style="color: red;">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    <div>
-        {{ form.first_name.label_tag }}
-        {{ form.first_name }}
-        {% for error in form.first_name.errors %}
-            <div style="color:red;">{{ error }}</div>
-        {% endfor %}
-    </div>
+  <div>
+    <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+    {{ form.last_name }}
+    {% for error in form.last_name.errors %}
+      <div style="color: red;">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    <div>
-        {{ form.last_name.label_tag }}
-        {{ form.last_name }}
-        {% for error in form.last_name.errors %}
-            <div style="color:red;">{{ error }}</div>
-        {% endfor %}
-    </div>
+  <div>
+    <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
+    {{ form.username }}
+    {% for error in form.username.errors %}
+      <div style="color: red;">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    <div>
-        {{ form.username.label_tag }}
-        {{ form.username }}
-        <small>{{ form.username.help_text }}</small>
-        {% for error in form.username.errors %}
-            <div style="color:red;">{{ error }}</div>
-        {% endfor %}
-    </div>
+  <div>
+    <label for="{{ form.password1.id_for_label }}">Пароль</label>
+    {{ form.password1 }}
+    {% for error in form.password1.errors %}
+      <div style="color: red;">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    <div>
-        {{ form.password1.label_tag }}
-        {{ form.password1 }}
-        <small>{{ form.password1.help_text }}</small>
-        {% for error in form.password1.errors %}
-            <div style="color:red;">{{ error }}</div>
-        {% endfor %}
-    </div>
+  <div>
+    <label for="{{ form.password2.id_for_label }}">Подтверждение пароля</label>
+    {{ form.password2 }}
+    {% for error in form.password2.errors %}
+      <div style="color: red;">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    <div>
-        {{ form.password2.label_tag }}
-        {{ form.password2 }}
-        <small>{{ form.password2.help_text }}</small>
-        {% for error in form.password2.errors %}
-            <div style="color:red;">{{ error }}</div>
-       {% endfor %}
-   </div>
-
-   <button type="submit">Зарегистрироваться</button>
+  <button type="submit">Зарегистрироваться</button>
 </form>
