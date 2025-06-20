@@ -3,7 +3,7 @@
 
   <div>
     <label for="{{ form.first_name.id_for_label }}">Имя</label>
-    {{ form.first_name.as_widget(attrs={'id': 'first_name', 'Имя': 'first_name'}) }}
+    {{ form.first_name.as_widget(attrs={'id': 'first_name', 'aria-label': 'Имя'}) }}
     {% for error in form.first_name.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
@@ -11,7 +11,7 @@
 
   <div>
     <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
-    {{ form.last_name.as_widget(attrs={'id': 'last_name', 'name': 'last_name'}) }}
+    {{ form.last_name.as_widget(attrs={'id': 'last_name', 'name': 'last_name', 'aria-label': 'Фамилия'}) }}
     {% for error in form.last_name.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
@@ -19,7 +19,7 @@
 
   <div>
     <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
-    {{ form.username.as_widget(attrs={'id': 'username', 'name': 'username'}) }}
+    {{ form.username.as_widget(attrs={'id': 'username', 'name': 'username', 'aria-label': 'Имя пользователя'}) }}
     {% for error in form.username.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
@@ -27,7 +27,7 @@
 
   <div>
     <label for="{{ form.password1.id_for_label }}">Пароль</label>
-    {{ form.password1.as_widget(attrs={'id': 'password1', 'name': 'password1'}) }}
+    {{ form.password1.as_widget(attrs={'id': 'password1', 'name': 'password1', 'aria-label': 'Пароль'}) }}
     {% for error in form.password1.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
@@ -35,7 +35,7 @@
 
   <div>
     <label for="{{ form.password2.id_for_label }}">Подтверждение пароля</label>
-    {{ form.password2.as_widget(attrs={'id': 'password2', 'name': 'password2'}) }}
+    {{ form.password2.as_widget(attrs={'id': 'password2', 'name': 'password2', 'aria-label': 'Подтверждение пароля'}) }}
     {% for error in form.password2.errors %}
       <div style="color: red;">{{ error }}</div>
     {% endfor %}
