@@ -12,10 +12,6 @@ from task_manager.users.forms import CustomAuthenticationForm
 from django.contrib import messages
 
 
-
-# def home_view(request):
-#     return render(request, 'index.html')
-#
 def register_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -25,73 +21,13 @@ def register_view(request):
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
-#
-# @login_required
-# def users_view(request):
-#     # Страница со списком пользователей (требует авторизации)
-#     from django.contrib.auth.models import User
-#     users = User.objects.all()
-#     return render(request, 'users.html', {'users': users})
-#
-#
-# def login_view(request):
-#     if request.method == 'POST':
-#         form = AuthenticationForm(request, data=request.POST)
-#     else:
-#         form = AuthenticationForm()
-#     # Добавляем класс 'form-control' к каждому полю
-#     for field in form.fields.values():
-#         field.widget.attrs.update({'class': 'form-control'})
-#
-#     if request.method == 'POST' and form.is_valid():
-#         user = form.get_user()
-#         login(request, user)
-#         return redirect('home')
-#     return render(request, 'login.html', {'form': form})
-#
+
 class UserListView(ListView):
      model = User
      template_name = 'users/user_list.html'
      context_object_name = 'users'
-#
-# # Создание пользователя (регистрация)
-# class UserCreateView(CreateView):
-#     model = User
-#     form_class = UserRegisterForm
-#     template_name = 'users/user_form.html'
-#     success_url = reverse_lazy('login')  # после регистрации — вход
-#
-# # Редактирование пользователя — только сам пользователь
-# class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = User
-#     form_class = UserUpdateForm
-#     template_name = 'users/user_form.html'
-#     success_url = reverse_lazy('user-list')
-#
-#     def test_func(self):
-#         user = self.get_object()
-#         return self.request.user == user # Редактирование пользователя — только сам пользователь
-# class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = User
-#     form_class = UserUpdateForm
-#     template_name = 'users/user_form.html'
-#     success_url = reverse_lazy('user-list')
-#
-#     def test_func(self):
-#         user = self.get_object()
-#         return self.request.user == user
-#
-# # Удаление пользователя — только сам пользователь
-# class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-#     model = User
-#     template_name = 'users/user_confirm_delete.html'
-#     success_url = reverse_lazy('user-list')
-#
-#     def test_func(self):
-#         user = self.get_object()
-#         return self.request.user == user
-#
-# # Вход
+
+
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
     authentication_form = CustomAuthenticationForm

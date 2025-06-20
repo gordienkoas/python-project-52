@@ -8,41 +8,45 @@ class UserRegisterForm(UserCreationForm):
     first_name = forms.CharField(
         label=_("Имя"),
         max_length=30,
-        widget=forms.TextInput(attrs={'placeholder': 'Имя'}),
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Имя',
+            # 'name': 'first_name'  # обычно не обязательно добавлять вручную
+        }),
     )
     last_name = forms.CharField(
         label=_("Фамилия"),
         max_length=30,
-        widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}),
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Фамилия',
+        }),
     )
     username = forms.CharField(
         label=_("Имя пользователя"),
         max_length=150,
-        widget=forms.TextInput(attrs={'placeholder': 'Имя пользователя'}),
-        help_text=_('Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_')
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Имя пользователя',
+        }),
     )
     password1 = forms.CharField(
         label=_("Пароль"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'placeholder': 'Пароль'}),
-        help_text=_("Ваш пароль должен содержать не менее 3 символов.")
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Пароль',
+        }),
     )
     password2 = forms.CharField(
         label=_("Подтверждение пароля"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'placeholder': 'Подтверждение пароля'}),
-        help_text=_("Для подтверждения введите, пожалуйста, пароль ещё раз.")
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Подтверждение пароля',
+        }),
     )
 
-    class Meta:
-        model = User
-        fields = ("first_name", "last_name", "username", "password1", "password2")
-
-    def clean_password1(self):
-        password1 = self.cleaned_data.get("password1")
-        if len(password1) < 3:
-            raise ValidationError(_("Пароль должен содержать не менее 3 символов."))
-        return password1
 
 class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(
@@ -51,18 +55,18 @@ class UserUpdateForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'placeholder': 'Введите имя'}),
         help_text='Введите ваше имя'
     )
-    # last_name = forms.CharField(
-    #     label="Фамилия",
-    #     max_length=30,
-    #     widget=forms.TextInput(attrs={'placeholder': 'Введите фамилию'}),
-    #     help_text='Введите вашу фамилию'
-    # )
-    # username = forms.CharField(
-    #     label="Имя пользователя",
-    #     max_length=150,
-    #     widget=forms.TextInput(attrs={'placeholder': 'Введите имя пользователя'}),
-    #     help_text='Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_'
-    # )
+    last_name = forms.CharField(
+        label="Фамилия",
+        max_length=30,
+        widget=forms.TextInput(attrs={'placeholder': 'Введите фамилию'}),
+        help_text='Введите вашу фамилию'
+    )
+    username = forms.CharField(
+        label="Имя пользователя",
+        max_length=150,
+        widget=forms.TextInput(attrs={'placeholder': 'Введите имя пользователя'}),
+        help_text='Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_'
+    )
 
     class Meta:
         model = User
