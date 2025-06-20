@@ -1,20 +1,15 @@
 <form method="post" novalidate autocomplete="off">
   {% csrf_token %}
 
-  <div>
-    <label for="{{ form.first_name.id_for_label }}">Имя</label>
-    {{ form.first_name.as_widget(attrs={
-        'id': 'id_first_name',
-        'name': 'first_name',
-        'maxlength': '150',
-        'class': 'form-control',
-        'placeholder': 'Имя',
-        'required': ''
-    }) }}
-    {% for error in form.first_name.errors %}
-      <div style="color: red;">{{ error }}</div>
-    {% endfor %}
-  </div>
+  <label class="form-label" for="id_first_name">Имя</label>
+{{ form.first_name.as_widget(attrs={
+    'id': 'id_first_name',
+    'name': 'first_name',
+    'maxlength': '150',
+    'class': 'form-control',
+    'placeholder': 'Имя',
+    'required': ''
+}) }}
 
   <div>
     <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
