@@ -12,6 +12,7 @@ from task_manager.users.forms import CustomAuthenticationForm
 from django.contrib import messages
 
 
+
 # def home_view(request):
 #     return render(request, 'index.html')
 #

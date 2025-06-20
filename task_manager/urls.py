@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from task_manager.views import UserLoginView, register_view, UserLogoutView
+from task_manager.views import UserLoginView, UserLogoutView
 
 urlpatterns = [
      path('admin/', admin.site.urls),
