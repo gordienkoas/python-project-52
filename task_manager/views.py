@@ -26,9 +26,8 @@ class UserListView(ListView):
      model = User
      template_name = 'users/user_list.html'
      context_object_name = 'users'
-r
-#
-# # Вход
+
+
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
     authentication_form = CustomAuthenticationForm
