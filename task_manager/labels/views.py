@@ -7,6 +7,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from django.contrib import messages
+from django.db.models import ProtectedError
+from django.shortcuts import redirect
 
 
 class LabelView(ListView):
@@ -39,3 +42,13 @@ class DeleteLabelView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = _("Label deleted successfully")
     login_url = reverse_lazy("login")
     redirect_field_name = None
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            response = super().post(request, *args, **kwargs)
+            messages.success(request, self.success_message)
+            return response
+        except ProtectedError:
+            messages.error(request, _("Невозможно удалить метку"))
+            return redirect(self.success_url)
