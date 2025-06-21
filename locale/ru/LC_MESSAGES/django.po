@@ -200,7 +200,7 @@ msgstr "Здесь нет меток"
 
 #: task_manager/templates/labels/update.html:13
 msgid "Label update"
-msgstr "Метка успешно обновлена"
+msgstr "Метка успешно изменена"
 
 #: task_manager/templates/statuses/create.html:13
 msgid "Status creation"
