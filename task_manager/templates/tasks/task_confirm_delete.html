@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Удалить задачу "{{ task.title }}"?</h2>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Подтвердить удаление</button>
-</form>
-<a href="{% url 'task-list' %}">Отмена</a>
-{% endblock %}
