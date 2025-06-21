@@ -13,11 +13,9 @@
             <form method="post">{% csrf_token %}
                 <p>{% translate "Are you sure want to delete label?" %} "{{ object.name }}"?</p>
                 {% bootstrap_form form %}
-                {% buttons %}
                 <button type="submit" class="btn btn-danger">
                     {% translate "Yes, exactly" %}
                 </button>
-                {% endbuttons %}
             </form>
         </div>
 
