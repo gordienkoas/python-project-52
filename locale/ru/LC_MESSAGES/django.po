@@ -122,7 +122,7 @@ msgstr "Задачи"
 #: task_manager/templates/base.html:60
 #: task_manager/templates/task_manager/base.html:58
 msgid "Log in"
-msgstr "Войти"
+msgstr "Вход"
 
 #: task_manager/templates/base.html:63
 #: task_manager/templates/task_manager/base.html:61
