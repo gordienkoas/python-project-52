@@ -8,8 +8,9 @@ from django.views.generic import (
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
-
-
+from django.views.generic import RedirectView
+from django.shortcuts import get_object_or_404, redirect
+from django.views import View
 from django_filters.views import FilterView
 
 from .forms import CreateTaskForm
@@ -44,13 +45,28 @@ class DetailTaskView(LoginRequiredMixin, DetailView):
 
 
 
-class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+# class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+#     pattern_name = "tasks:list"
+#     model = Task
+#     success_url = reverse_lazy("tasks:task_list")
+#     template_name = "tasks/delete.html"
+#     success_message = _("Task deleted successfully")
+#     login_url = reverse_lazy("login")
+#     redirect_field_name = None
+class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, View):
     model = Task
     success_url = reverse_lazy("tasks:task_list")
-    template_name = "tasks/delete.html"
     success_message = _("Task deleted successfully")
     login_url = reverse_lazy("login")
     redirect_field_name = None
+
+    def get(self, request, *args, **kwargs):
+        task = get_object_or_404(self.model, pk=kwargs.get("pk"))
+        task.delete()
+        # Добавляем сообщение об успешном удалении
+        from django.contrib import messages
+        messages.success(request, self.success_message)
+        return redirect(self.success_url)
 
 
 class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
