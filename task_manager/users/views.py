@@ -40,7 +40,7 @@ class LogoutAllowGetView(LogoutView):
     http_method_names = ['get', 'post']
 
     def get(self, request, *args, **kwargs):
-        # Чтобы GET вызывал logout, просто вызываем post
+        messages.info(request, _("You are logged out"))
         return self.post(request, *args, **kwargs)
 
 
