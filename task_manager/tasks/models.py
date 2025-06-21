@@ -25,7 +25,7 @@ class Task(models.Model):
         blank=True,
         null=True,
         verbose_name="Исполнитель",
-        related_name="executors",
+        related_name="executor",
     )
     author = models.ForeignKey(
         MyUser,
