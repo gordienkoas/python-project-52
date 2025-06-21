@@ -57,7 +57,7 @@ class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
             messages.success(request, self.success_message)
             return response
         except ProtectedError:
-            messages.error(request, _("Cannot delete status because it is referenced by existing tasks."))
+            messages.error(request, _("Невозможно удалить статус"))
             return redirect(self.success_url)
 
 # class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):

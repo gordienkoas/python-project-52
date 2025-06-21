@@ -10,9 +10,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
 
 
-from django.contrib import messages
+
 from django_filters.views import FilterView
-from django.shortcuts import redirect
+
 from .forms import CreateTaskForm
 from .models import Task
 from .filters import TaskFilter
