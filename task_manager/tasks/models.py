@@ -1,21 +1,58 @@
 from django.db import models
-from django.contrib.auth.models import User
+
+# from django.utils.translation import gettext_lazy as _
+from task_manager.users.models import MyUser
+from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
 
 
 class Task(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    executor = models.ForeignKey(  # Изменили название поля
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='executed_tasks'
+    name = models.CharField(
+        verbose_name="Имя",
+        max_length=150,
+        null=False,
+        blank=False,
+        unique=True,
     )
-    labels = models.ManyToManyField(Label, blank=True, related_name='tasks')
-    status = models.CharField(max_length=100, blank=True, null=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks_created')
-    created_at = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(
+        verbose_name="Описание",
+        blank=True,
+    )
+    status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name="Статус")
+    executor = models.ForeignKey(
+        MyUser,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Исполнитель",
+        related_name="executors",
+    )
+    author = models.ForeignKey(
+        MyUser,
+        on_delete=models.CASCADE,
+        verbose_name="Автор",
+        related_name="authors",
+    )
+    labels = models.ManyToManyField(
+        Label,
+        blank=True,
+        verbose_name="Метки",
+        related_name="labels",
+        through="TaskLabels",
+    )
+    created_at = models.DateTimeField(
+        verbose_name="Дата создания",
+        auto_now_add=True,
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Task"
+        verbose_name_plural = "Tasks"
 
 
+class TaskLabels(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    label = models.ForeignKey(Label, on_delete=models.PROTECT)

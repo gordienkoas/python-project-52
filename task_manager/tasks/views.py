@@ -1,74 +1,60 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
-from django.contrib import messages
-from .models import Task
-from .forms import TaskForm
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView,
+    DetailView,
+)
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.translation import gettext_lazy as _
+
 from django_filters.views import FilterView
-from task_manager.tasks.filters import TaskFilter
 
-class TaskListView(FilterView):
+from .forms import CreateTaskForm
+from .models import Task
+from .filters import TaskFilter
+
+
+class TaskListView(LoginRequiredMixin, FilterView):
     model = Task
+    context_object_name = "task_list"
+    template_name = "tasks/task_list.html"
     filterset_class = TaskFilter
-    template_name = 'tasks/task_list.html'
-    context_object_name = 'tasks'
-    paginate_by = 10
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.order_by('id')
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
-    model = Task
-    form_class = TaskForm
-    template_name = 'tasks/task_form.html'
-    success_url = reverse_lazy('task-list')
+class CreatTaskView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    template_name = "tasks/create.html"
+    success_url = reverse_lazy("tasks:task_list")
+    form_class = CreateTaskForm
+    success_message = _("Task created successfully")
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
-        messages.success(self.request, 'Задача успешно создана.')
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
         return super().form_valid(form)
 
-class TaskDetailView(LoginRequiredMixin, DetailView):
-     model = Task
-     template_name = 'tasks/task_detail.html'
-     context_object_name = 'task'
 
-# class TaskCreateView(LoginRequiredMixin, CreateView):
-#     model = Task
-#     form_class = TaskForm
-#     template_name = 'tasks/task_form.html'
-#     success_url = reverse_lazy('task-list')
-
-    # def form_valid(self, form):
-    #     form.instance.author = self.request.user
-    #     messages.success(self.request, 'Задача успешно создана.')
-    #     return super().form_valid(form)
-
-class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class DetailTaskView(LoginRequiredMixin, DetailView):
     model = Task
-    form_class = TaskForm
-    template_name = 'tasks/task_form.html'
-    success_url = reverse_lazy('task-list')
+    template_name = "tasks/detail.html"
 
-    def form_valid(self, form):
-        messages.success(self.request, 'Задача успешно обновлена.')
-        return super().form_valid(form)
 
-    def test_func(self):
-        task = self.get_object()
-        return self.request.user == task.author
-
-class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
-    template_name = 'tasks/task_confirm_delete.html'
-    success_url = reverse_lazy('task-list')
+    success_url = reverse_lazy("tasks:task_list")
+    template_name = "tasks/delete.html"
+    success_message = _("Task deleted successfully")
+    login_url = reverse_lazy("login")
+    redirect_field_name = None
 
-    def test_func(self):
-        task = self.get_object()
-        return self.request.user == task.author
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, 'Задача успешно удалена.')
-        return super().delete(request, *args, **kwargs)
+class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Task
+    success_url = reverse_lazy("tasks:task_list")
+    template_name = "tasks/update.html"
+    form_class = CreateTaskForm
+    success_message = _("Task updated successfully")
+    # login_url = reverse_lazy("tasks:task_list")
+    # redirect_field_name = None
