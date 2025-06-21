@@ -185,7 +185,7 @@ msgstr "Дата создания"
 #: task_manager/templates/tasks/task_list.html:54
 #: task_manager/templates/users/user_list.html:30
 msgid "Update"
-msgstr "Редактировать"
+msgstr "Изменить"
 
 #: task_manager/templates/labels/label_list.html:31
 #: task_manager/templates/statuses/status_list.html:31
