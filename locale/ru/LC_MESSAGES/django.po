@@ -64,7 +64,7 @@ msgstr "Статус успешно создан"
 
 #: task_manager/statuses/views.py:37
 msgid "Status updated successfully"
-msgstr "Статус успешно обновлен"
+msgstr "Статус успешно изменен"
 
 #: task_manager/statuses/views.py:46
 msgid "Status deleted successfully"
@@ -88,7 +88,7 @@ msgstr "Задачу успешно удалена"
 
 #: task_manager/tasks/views.py:58
 msgid "Task updated successfully"
-msgstr "Задача успешно обновлена"
+msgstr "Задача успешно изменена"
 
 #: task_manager/templates/base.html:22 task_manager/templates/base.html:33
 #: task_manager/templates/task_manager/base.html:21
