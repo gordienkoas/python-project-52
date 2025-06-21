@@ -8,7 +8,9 @@ from django.views.generic import (
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib import messages
+from django.db.models import ProtectedError
+from django.shortcuts import redirect
 
 
 from django_filters.views import FilterView
@@ -53,6 +55,15 @@ class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     login_url = reverse_lazy("login")
     redirect_field_name = None
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            response = super().post(request, *args, **kwargs)
+            messages.success(request, self.success_message)
+            return response
+        except ProtectedError:
+            messages.error(request, _("Невозможно удалить задачу"))
+            return redirect(self.success_url)
 
 
 class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
