@@ -15,6 +15,7 @@
 
 {% block header %}
 
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,6 +24,7 @@
 {% endblock %}
 
 {% block navbar %}
+
 
 <body class="d-flex flex-column h-100">
     <header>
@@ -93,5 +95,10 @@
 
         </div>
     </main>
-
+<form action="{% url 'set_language' %}" method="post" class="d-inline">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.path }}">
+    <button name="language" value="en" class="btn btn-sm btn-outline-primary">English</button>
+    <button name="language" value="ru" class="btn btn-sm btn-outline-secondary">Русский</button>
+</form>
 </html>

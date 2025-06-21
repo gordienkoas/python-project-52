@@ -72,6 +72,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -157,3 +158,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = "index"
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]

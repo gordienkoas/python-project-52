@@ -1,21 +1,22 @@
 {% extends "task_manager/base.html" %}
 
-{% load i18n %}
 {% load django_bootstrap5 %}
+{% load i18n %}
+
+{% block title %}{% trans 'Registration' %}{% endblock %}
+
 
 {% block content %}
-
 <div class="container" style="width: 60%; color: black">
-    {% bootstrap_messages %}
     <div class="card bg-light my-5">
         <div class="card-header">
-            <h3>{% trans 'Login' %}</h3>
+            <h3>{% translate 'Label update' %}</h3>
         </div>
         <div class="card-body">
             <form class="form" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <button class="btn btn-primary" type="submit">{% trans 'ToLogin' %}</button>
+                <button class="btn btn-primary" type="submit">{% trans 'Update' %}</button>
             </form>
         </div>
     </div>
