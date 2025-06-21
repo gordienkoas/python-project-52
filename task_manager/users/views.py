@@ -36,11 +36,12 @@ class LoginUserView(SuccessMessageMixin, LoginView):
     success_message = _("You are logged in")
 
 
-class LogoutUserView(LogoutView):
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        messages.add_message(request, messages.INFO, _("You are logged out"))
-        return response
+class LogoutAllowGetView(LogoutView):
+    http_method_names = ['get', 'post']
+
+    def get(self, request, *args, **kwargs):
+        # Чтобы GET вызывал logout, просто вызываем post
+        return self.post(request, *args, **kwargs)
 
 
 class UpdateUserView(
