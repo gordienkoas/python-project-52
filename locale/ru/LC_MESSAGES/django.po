@@ -76,7 +76,7 @@ msgstr "Статус успешно удален"
 #, fuzzy
 #| msgid "Unable to delete because it is used in task!"
 msgid "Cannot delete status because it is referenced by existing tasks."
-msgstr "Невозможно удалить статус, потому что он используется"
+msgstr "Невозможно удалить статус"
 
 #: task_manager/tasks/forms.py:9
 msgid "Task description"
