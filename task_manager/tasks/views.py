@@ -55,16 +55,6 @@ class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     login_url = reverse_lazy("login")
     redirect_field_name = None
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        try:
-            response = super().post(request, *args, **kwargs)
-            messages.success(request, self.success_message)
-            return response
-        except ProtectedError:
-            messages.error(request, _("Невозможно удалить задачу"))
-            return redirect(self.success_url)
-
 
 class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
