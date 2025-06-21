@@ -8,9 +8,6 @@ from django.views.generic import (
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
-from django.contrib import messages
-from django.db.models import ProtectedError
-from django.shortcuts import redirect
 
 
 from django_filters.views import FilterView
