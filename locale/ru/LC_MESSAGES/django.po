@@ -241,7 +241,7 @@ msgstr "Войти"
 
 #: task_manager/templates/users/register.html:19
 msgid "Register"
-msgstr "Регистрация"
+msgstr "Зарегистрировать"
 
 #: task_manager/templates/users/user_list.html:10
 msgid "Registered users"
