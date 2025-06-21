@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-21 19:39+0000\n"
+"POT-Creation-Date: 2025-06-21 20:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgid "Name"
 msgstr "Имя"
 
 #: task_manager/labels/models.py:7 task_manager/templates/tasks/detail.html:31
-#: task_manager/users/models.py:9
+#: task_manager/users/models.py:8
 msgid "Creation date"
 msgstr "Дата создания"
 
@@ -60,31 +60,37 @@ msgstr ""
 msgid "Object has not attr is_object_in_use"
 msgstr ""
 
-#: task_manager/statuses/views.py:22
+#: task_manager/statuses/views.py:25
 msgid "Status created successfully"
 msgstr "Статус успешно создан"
 
-#: task_manager/statuses/views.py:37
+#: task_manager/statuses/views.py:40
 msgid "Status updated successfully"
 msgstr "Статус успешно изменен"
 
-#: task_manager/statuses/views.py:46
+#: task_manager/statuses/views.py:49
 msgid "Status deleted successfully"
 msgstr "Статус успешно удален"
+
+#: task_manager/statuses/views.py:60
+#, fuzzy
+#| msgid "Unable to delete because it is used in task!"
+msgid "Cannot delete status because it is referenced by existing tasks."
+msgstr "Невозможно удалить статус, потому что он используется"
 
 #: task_manager/tasks/forms.py:9
 msgid "Task description"
 msgstr "Описание"
 
-#: task_manager/tasks/views.py:30
+#: task_manager/tasks/views.py:32
 msgid "Task created successfully"
 msgstr "Задача успешно создана"
 
-#: task_manager/tasks/views.py:48
+#: task_manager/tasks/views.py:52
 msgid "Task deleted successfully"
 msgstr "Задача успешно удалена"
 
-#: task_manager/tasks/views.py:58
+#: task_manager/tasks/views.py:63
 msgid "Task updated successfully"
 msgstr "Задача успешно изменена"
 
