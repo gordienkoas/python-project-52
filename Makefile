@@ -14,7 +14,7 @@ collectstatic:
 	uv run python3 manage.py collectstatic --no-input
 
 start-server:
-	uv run manage.py runserver 0.0.0.0:3002
+	uv run manage.py runserver 0.0.0.0:3003
 
 lint:
 	ruff check .
