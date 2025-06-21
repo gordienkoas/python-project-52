@@ -154,7 +154,7 @@ msgstr "Создание метки"
 #: task_manager/templates/labels/create.html:19
 #: task_manager/templates/statuses/create.html:19
 msgid "Create"
-msgstr "Создание"
+msgstr "Создать"
 
 #: task_manager/templates/labels/delete.html:10
 msgid "Status deletion"
