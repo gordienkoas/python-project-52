@@ -137,7 +137,7 @@ msgstr "Вы вошли как"
 #: task_manager/templates/base.html:70
 #: task_manager/templates/task_manager/base.html:70
 msgid "Log out"
-msgstr ""
+msgstr "Выход"
 
 #: task_manager/templates/labels/create.html:6
 #: task_manager/templates/labels/update.html:6
@@ -162,7 +162,7 @@ msgstr "Статус удален"
 
 #: task_manager/templates/labels/delete.html:14
 msgid "Are you sure want to delete label?"
-msgstr ""
+msgstr "Вы действительно хотите удалить метку?"
 
 #: task_manager/templates/labels/delete.html:18
 msgid "Yes, exactly"
@@ -192,20 +192,20 @@ msgstr "Обновить"
 #: task_manager/templates/tasks/task_list.html:56
 #: task_manager/templates/users/user_list.html:32
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: task_manager/templates/labels/label_list.html:38
 msgid "There are no labels."
-msgstr ""
+msgstr "Метки утсутствуют."
 
 #: task_manager/templates/labels/update.html:13
 msgid "Label update"
-msgstr ""
+msgstr "Обновить метку."
 
 #: task_manager/templates/login.html:10
 #: task_manager/templates/users/login.html:12
 msgid "Login"
-msgstr ""
+msgstr "Вход"
 
 #: task_manager/templates/login.html:13
 msgid "Username and password did not match. Please try again."
@@ -246,35 +246,35 @@ msgstr ""
 
 #: task_manager/templates/users/login.html:18
 msgid "ToLogin"
-msgstr ""
+msgstr "Войти"
 
 #: task_manager/templates/users/register.html:19
 msgid "Register"
-msgstr ""
+msgstr "Регистрация"
 
 #: task_manager/templates/users/user_list.html:10
 msgid "Registered users"
-msgstr ""
+msgstr "Зарегистрированные пользователи."
 
 #: task_manager/templates/users/user_list.html:16
 msgid "Username"
-msgstr ""
+msgstr "Имя"
 
 #: task_manager/templates/users/user_list.html:17
 msgid "Full name"
-msgstr ""
+msgstr "Полное имя"
 
 #: task_manager/users/forms.py:13
 msgid "<ul><li>Your password should contain at least 3 symbols.</li></ul>"
-msgstr ""
+msgstr "Ваш пароль должен содержать как минимум 3 символа."
 
 #: task_manager/users/forms.py:16
 msgid "First name"
-msgstr ""
+msgstr "Имя"
 
 #: task_manager/users/forms.py:17
 msgid "Last name"
-msgstr ""
+msgstr "Фамилия"
 
 #: task_manager/users/mixins.py:10
 msgid "You are have not permission to change other user!"
@@ -286,11 +286,11 @@ msgstr ""
 
 #: task_manager/users/views.py:36
 msgid "You are logged in"
-msgstr ""
+msgstr "Вы не вошли."
 
 #: task_manager/users/views.py:54
 msgid "The user has been successfully updated"
-msgstr ""
+msgstr "Пользователь успешно обнавлен."
 
 #: task_manager/users/views.py:63
 msgid "You don't have the rights to change another user"
