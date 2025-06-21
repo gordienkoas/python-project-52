@@ -1,6 +1,7 @@
 from django.db import models
 
-# from django.utils.translation import gettext_lazy as _
+
+#from django.utils.translation import gettext_lazy as _
 from task_manager.users.models import MyUser
 from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
@@ -25,7 +26,7 @@ class Task(models.Model):
         blank=True,
         null=True,
         verbose_name="Исполнитель",
-        related_name="Исполнитель",
+        related_name="executor",
     )
     author = models.ForeignKey(
         MyUser,
@@ -56,3 +57,5 @@ class Task(models.Model):
 class TaskLabels(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     label = models.ForeignKey(Label, on_delete=models.PROTECT)
+
+
