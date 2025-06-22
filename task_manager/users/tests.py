@@ -79,6 +79,7 @@ class CustomUserTestCase(TestCase):
         self.assertTemplateUsed(response,
                                 template_name="users/delete.html")
 
-        response = self.client.post(reverse("users:delete_user", args=[user.pk]))
+        response = self.client.post(reverse("users:delete_user",
+                                            args=[user.pk]))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(get_user_model().objects.count(), 0)
