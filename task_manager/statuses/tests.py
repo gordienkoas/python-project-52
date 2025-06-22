@@ -1,25 +1,76 @@
 from django.test import TestCase
-from django.urls import reverse
-from django.contrib.messages import get_messages
-from django.contrib.auth import get_user_model
+from task_manager.users.models import MyUser
 from task_manager.statuses.models import Status
+from django.urls import reverse
+from django import test
 
-class StatusUpdateTest(TestCase):
+
+@test.modify_settings(
+    MIDDLEWARE={
+        "remove": [
+            "rollbar.contrib.django.middleware.RollbarNotifierMiddleware",
+        ]
+    }
+)
+class StatusesTest(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(username='testuser', password='12345')
+        self.user = MyUser.objects.create_user(
+            username="test", password="12test12", first_name="bla", last_name="blabla"
+        )
+        self.status = Status.objects.create(name="test11")
+
+    def test_status_page(self):
+        response = self.client.get(reverse("statuses:status_list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name="statuses/status_list.html")
+
+    def test_create_status(self):
+        response = self.client.post(
+            reverse("statuses:create_status"), {"name": "test_status228"}
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Status.objects.count(), 2)
+        self.assertEqual(Status.objects.last().name, "test_status228")
+
+    def test_update_status_unauthorized(self):
+        response = self.client.post(
+            reverse("statuses:update_status", kwargs={"pk": self.status.id}),
+            {"name": "bipki"},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse("statuses:status_list"))
+        self.status.refresh_from_db()
+        self.assertEqual(self.status.name, "test11")
+
+    def test_update_status_authorized(self):
+        status = Status.objects.create(name="test111")
         self.client.force_login(self.user)
-        self.status = Status.objects.create(name='Initial Status')
 
-    def test_status_update(self):
-        url = reverse('status-update', args=[self.status.id])
-        data = {'name': 'Обновлённый статус'}
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 302)  # редирект
+        response = self.client.get(
+            reverse("statuses:update_status", kwargs={"pk": self.status.id})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name="statuses/update.html")
 
-        # Следующий запрос — страница списка, куда редиректит
-        response = self.client.get(reverse('status-list'))
-        messages = list(get_messages(response.wsgi_request))
+        response = self.client.post(
+            reverse("statuses:update_status", kwargs={"pk": status.id}),
+            {"name": "bipki"},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse("statuses:status_list"))
+        status.refresh_from_db()
+        self.assertEqual(status.name, "bipki")
+        self.client.logout()
 
-        print('Сообщения:', [str(m) for m in messages])  # Для отладки
-
-        self.assertTrue(any('Статус успешно обновлен.' in str(m) for m in messages))
+    def test_delete_status(self):
+        self.client.force_login(self.user)
+        response = self.client.get(
+            reverse("statuses:delete_status", kwargs={"pk": self.status.id})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name="statuses/delete.html")
+        response = self.client.post(
+            reverse("statuses:delete_status", kwargs={"pk": self.status.id})
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Status.objects.count(), 0)

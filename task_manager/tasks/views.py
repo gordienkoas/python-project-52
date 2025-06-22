@@ -9,7 +9,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
 
-from django.views import View
 from django_filters.views import FilterView
 
 from .forms import CreateTaskForm

@@ -1,0 +1,20 @@
+[
+    {
+        "model": "users.myuser",
+        "pk": 777,
+        "fields": {
+            "password": "password_test",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "username_test",
+            "first_name": "first_name_test",
+            "last_name": "last_name_test",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "created_at": "2025-06-02T09:12:42.162Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]
