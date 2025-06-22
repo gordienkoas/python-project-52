@@ -19,4 +19,4 @@ urlpatterns = [
     path("tasks/", include("task_manager.tasks.urls"), name="tasks"),
     path("labels/", include("task_manager.labels.urls"), name="labels"),
     path('i18n/setlang/', set_language, name='set_language'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
