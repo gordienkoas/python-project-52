@@ -1,9 +1,12 @@
+import os
 from django.test import TestCase
 from task_manager.users.models import MyUser
 from task_manager.statuses.models import Status
 from django.urls import reverse
 from django import test
+from dotenv import load_dotenv
 
+load_dotenv()
 
 @test.modify_settings(
     MIDDLEWARE={
@@ -15,7 +18,7 @@ from django import test
 class StatusesTest(TestCase):
     def setUp(self):
         self.user = MyUser.objects.create_user(
-            username="test", password="12test12", first_name="bla", last_name="blabla"
+            username="test", password=os.getenv("password"), first_name="bla", last_name="blabla"
         )
         self.status = Status.objects.create(name="test11")
 

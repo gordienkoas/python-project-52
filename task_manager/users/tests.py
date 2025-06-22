@@ -1,8 +1,11 @@
+import os
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from django import test
+from dotenv import load_dotenv
 
+load_dotenv()
 
 @test.modify_settings(
     MIDDLEWARE={
@@ -33,8 +36,8 @@ class CustomUserTestCase(TestCase):
             "first_name": "user2_first_name",
             "last_name": "user2_last_name",
             "username": "user2_username",
-            "password1": "Nx7sDQ9D",
-            "password2": "Nx7sDQ9D",
+            "password1": os.getenv("password1"),
+            "password2": os.getenv("password2"),
         }
         response = self.client.post(reverse("users:create_user"), user_add)
         self.assertEqual(response.status_code, 302)
@@ -54,8 +57,8 @@ class CustomUserTestCase(TestCase):
             "first_name": "user3_first_name",
             "last_name": "user3_last_name",
             "username": "user3_username",
-            "password1": "Nx7sDQ9D3",
-            "password2": "Nx7sDQ9D3",
+            "password1": os.getenv("password1"),
+            "password2": os.getenv("password2"),
         }
         response = self.client.post(
             reverse("users:update_user", args=[user.pk]), user_update_info
