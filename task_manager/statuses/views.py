@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.db.models import ProtectedError
 
+
 class StatusView(ListView):
     model = Status
     context_object_name = "status_list"
@@ -44,8 +45,8 @@ class UpdateStatusView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Status
-    template_name = "statuses/delete.html"
     success_url = reverse_lazy("statuses:status_list")
+    template_name = "statuses/delete.html"
     success_message = _("Status deleted successfully")
     login_url = reverse_lazy("login")
     redirect_field_name = None

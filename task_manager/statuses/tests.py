@@ -6,6 +6,7 @@ from django.urls import reverse
 from django import test
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 @test.modify_settings(
@@ -18,14 +19,16 @@ load_dotenv()
 class StatusesTest(TestCase):
     def setUp(self):
         self.user = MyUser.objects.create_user(
-            username="test", password=os.getenv("password"), first_name="bla", last_name="blabla"
+            username="test", password=os.getenv("password"),
+            first_name="bla", last_name="blabla"
         )
         self.status = Status.objects.create(name="test11")
 
     def test_status_page(self):
         response = self.client.get(reverse("statuses:status_list"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name="statuses/status_list.html")
+        self.assertTemplateUsed(response,
+                                template_name="statuses/status_list.html")
 
     def test_create_status(self):
         response = self.client.post(

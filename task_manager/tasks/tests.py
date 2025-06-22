@@ -58,7 +58,8 @@ class TaskTest(TestCase):
             "labels": self.labels.pk,
         }
 
-        response = self.client.post(reverse("tasks:create_task"), new_task_create_data)
+        response = self.client.post(reverse("tasks:create_task"),
+                                    new_task_create_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Task.objects.count(), 2)
 

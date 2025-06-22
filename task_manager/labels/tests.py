@@ -22,7 +22,8 @@ class LabelsTest(TestCase):
     def test_label_page(self):
         response = self.client.get(reverse("labels:label_list"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name="labels/label_list.html")
+        self.assertTemplateUsed(response,
+                                template_name="labels/label_list.html")
 
     def test_create_label(self):
         self.assertEqual(Label.objects.count(), 1)

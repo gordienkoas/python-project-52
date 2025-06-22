@@ -13,12 +13,15 @@ class NewUserForm(UserCreationForm):
             "<ul><li>Your password should contain at least 3 symbols.</li></ul>"
         )
 
-    first_name = forms.CharField(max_length=30, required=True, label=_("First name"))
-    last_name = forms.CharField(max_length=30, required=True, label=_("Last name"))
+    first_name = forms.CharField(max_length=30, required=True,
+                                 label=_("First name"))
+    last_name = forms.CharField(max_length=30, required=True,
+                                label=_("Last name"))
 
     class Meta:
         model = MyUser
-        fields = ("first_name", "last_name", "username", "password1", "password2")
+        fields = ("first_name", "last_name",
+                  "username", "password1", "password2")
 
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)

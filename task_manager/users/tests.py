@@ -5,7 +5,9 @@ from django.urls import reverse
 from django import test
 from dotenv import load_dotenv
 
+
 load_dotenv()
+
 
 @test.modify_settings(
     MIDDLEWARE={
@@ -74,7 +76,8 @@ class CustomUserTestCase(TestCase):
         user = get_user_model().objects.first()
         response = self.client.get(reverse("users:delete_user", args=[user.pk]))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name="users/delete.html")
+        self.assertTemplateUsed(response,
+                                template_name="users/delete.html")
 
         response = self.client.post(reverse("users:delete_user", args=[user.pk]))
         self.assertEqual(response.status_code, 302)
