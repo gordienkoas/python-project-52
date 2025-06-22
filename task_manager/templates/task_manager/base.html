@@ -51,6 +51,48 @@
                     {% endif %}
                 </ul>
             </div>
+
+
+<style>
+  /* Стиль для блока переключения языка */
+  .language-switcher {
+    display: flex;
+    gap: 5px; /* расстояние между кнопками */
+    align-items: center;
+  }
+
+  /* Общий стиль для кнопок */
+  .language-switcher button {
+    font-size: small;
+    padding: 4px 8px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+  }
+
+  /* Эффект при наведении */
+  .language-switcher button:hover {
+    background-color: #ddd;
+  }
+</style>
+
+<div class="language-switcher">
+  <form action="{% url 'set_language' %}" method="post" style="margin:0;">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.path }}">
+    <button type="submit" name="language" value="en">EN</button>
+  </form>
+
+  <form action="{% url 'set_language' %}" method="post" style="margin:0;">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.path }}">
+    <button type="submit" name="language" value="ru">RU</button>
+  </form>
+</div>
+
+
             <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
                 <ul class="navbar-nav text-right">
                     {% if not user.is_authenticated %}
