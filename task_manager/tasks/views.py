@@ -62,7 +62,7 @@ class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     redirect_field_name = None
 
     permission_denied_url = success_url
-    permission_denied_message = _("Only the task's author can delete it")
+    permission_denied_message = _("Задачу может удалить только ее автор")
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
