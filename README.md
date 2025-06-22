@@ -34,3 +34,31 @@ Break down complex tasks into smaller steps or checklists.
 Add comments or notes to tasks for team communication.
 - Attachments
 Upload files or documents related to specific tasks.
+
+### Installation and Running
+
+Use the `Makefile` to simplify the installation and startup process:
+
+```bash
+git clone https://github.com/gordienkoas/python-project-52
+cd python-project-52
+
+## Configuration
+Before running the application, make sure your environment variables are set up correctly. Check the .env file and ensure that it contains valid values for the following variables:
+SECRET_KEY: A secret key for your application.
+DATABASE_URL: The connection string for your PostgreSQL database, formatted as postgresql://username:password@localhost:5432/database_name.
+
+# Install project dependencies
+make build
+
+# Run the production server
+make start-server
+```
+
+### Testing
+
+To run tests, use the following command:
+
+```bash
+make lint  # Code linting
+```
