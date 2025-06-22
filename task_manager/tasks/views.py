@@ -8,13 +8,13 @@ from django.views.generic import (
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
-
+from django.shortcuts import redirect
 from django_filters.views import FilterView
-
+from django.contrib import messages
 from .forms import CreateTaskForm
 from .models import Task
 from .filters import TaskFilter
-
+from django.core.exceptions import PermissionDenied
 
 
 class TaskListView(LoginRequiredMixin, FilterView):
@@ -44,6 +44,14 @@ class DetailTaskView(LoginRequiredMixin, DetailView):
 
 
 
+# class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+#     pattern_name = "tasks:list"
+#     model = Task
+#     success_url = reverse_lazy("tasks:task_list")
+#     template_name = "tasks/delete.html"
+#     success_message = _("Task deleted successfully")
+#     login_url = reverse_lazy("login")
+#     redirect_field_name = None
 class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     pattern_name = "tasks:list"
     model = Task
@@ -52,6 +60,22 @@ class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = _("Task deleted successfully")
     login_url = reverse_lazy("login")
     redirect_field_name = None
+
+    permission_denied_url = success_url
+    permission_denied_message = _("Only the task's author can delete it")
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if obj.author != self.request.user:
+            raise PermissionDenied
+        return obj
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except PermissionDenied:
+            messages.error(request, self.permission_denied_message)
+            return redirect(self.permission_denied_url)
 
 
 class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
