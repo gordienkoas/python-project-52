@@ -44,8 +44,8 @@ class UpdateStatusView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Status
-    success_url = reverse_lazy("statuses:status_list")
     template_name = "statuses/delete.html"
+    success_url = reverse_lazy("statuses:status_list")
     success_message = _("Status deleted successfully")
     login_url = reverse_lazy("login")
     redirect_field_name = None

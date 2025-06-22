@@ -14,6 +14,9 @@ from django_filters.views import FilterView
 from .forms import CreateTaskForm
 from .models import Task
 from .filters import TaskFilter
+from django.views import View
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib import messages
 
 
 class TaskListView(LoginRequiredMixin, FilterView):
@@ -43,15 +46,24 @@ class DetailTaskView(LoginRequiredMixin, DetailView):
 
 
 
-class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    pattern_name = "tasks:list"
-    model = Task
-    success_url = reverse_lazy("tasks:task_list")
-    template_name = "tasks/delete.html"
-    success_message = _("Task deleted successfully")
+# class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+#     pattern_name = "tasks:list"
+#     model = Task
+#     success_url = reverse_lazy("tasks:task_list")
+#     template_name = "tasks/delete.html"
+#     success_message = _("Task deleted successfully")
+#     login_url = reverse_lazy("login")
+#     redirect_field_name = None
+class DeleteTaskView(LoginRequiredMixin, View):
     login_url = reverse_lazy("login")
     redirect_field_name = None
+    success_url = reverse_lazy("tasks:task_list")
 
+    def get(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        task.delete()
+        messages.success(request, _("Task deleted successfully"))
+        return redirect(self.success_url)
 
 
 class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
