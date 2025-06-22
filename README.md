@@ -12,3 +12,18 @@ Task management is a Django web application. Django-based task tracking system w
 - Tasks have labels and statuses.
 - The application works with all kinds of databases.
 - Russian and English languages are supported (see locale).
+
+## Technologies
+- Django
+- Error tracking with Rollbar
+- CI/CD with GitHub Actions (one pipeline created by hexlet and one by me)
+- bootstrap5
+- ruff
+
+## Features
+- Subtasks and Checklists
+Break down complex tasks into smaller steps or checklists.
+- Comments and Collaboration
+Add comments or notes to tasks for team communication.
+- Attachments
+Upload files or documents related to specific tasks.
