@@ -43,21 +43,15 @@ class DetailTaskView(LoginRequiredMixin, DetailView):
 
 
 
-# class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-#     pattern_name = "tasks:list"
-#     model = Task
-#     success_url = reverse_lazy("tasks:task_list")
-#     template_name = "tasks/delete.html"
-#     success_message = _("Task deleted successfully")
-#     login_url = reverse_lazy("login")
-#     redirect_field_name = None
 class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    pattern_name = "tasks:list"
     model = Task
-    template_name = "tasks/delete.html"
     success_url = reverse_lazy("tasks:task_list")
+    template_name = "tasks/delete.html"
     success_message = _("Task deleted successfully")
     login_url = reverse_lazy("login")
     redirect_field_name = None
+
 
 
 class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
