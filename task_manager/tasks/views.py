@@ -58,11 +58,18 @@ class DeleteTaskView(LoginRequiredMixin, View):
     login_url = reverse_lazy("login")
     redirect_field_name = None
     success_url = reverse_lazy("tasks:task_list")
+    permission_denied_url = reverse_lazy("tasks:task_list")
 
     def get(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
+
+        # Проверка, что текущий пользователь — автор задачи
+        if task.author != request.user:
+            messages.error(request, _("Only the task's author can delete it"))
+            return redirect(self.permission_denied_url)
+
         task.delete()
-        messages.success(request, _("Task deleted successfully"))
+        messages.success(request, _("Task was deleted successfully"))
         return redirect(self.success_url)
 
 
