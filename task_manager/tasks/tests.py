@@ -1,3 +1,4 @@
+import os
 from django.test import TestCase
 from task_manager.users.models import MyUser
 from task_manager.statuses.models import Status
@@ -5,6 +6,9 @@ from task_manager.labels.models import Label
 from .models import Task
 from django.urls import reverse
 from django import test
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 @test.modify_settings(
@@ -84,7 +88,7 @@ class TaskTest(TestCase):
             username="newbie",
             first_name="new",
             last_name="bie",
-            password="secret",
+            password=os.getenv("task_pw"),
         )
 
         new_label = Label.objects.create(name="new")
